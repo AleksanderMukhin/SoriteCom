@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clôture</th>
+            <th>inscrits/places</th>
+            <th>Etat</th>
+            <th>Organisateur</th>
+            <th>Actions</th>
+        </tr>
+{#  {% for uneSortie in sorties %}#}
+            <tr>
+                <th>{{ uneSortie.s_nom }}</th>
+                <th>{{ uneSortie.s_date_heure_debut }}</th>
+                <th>{{ uneSortie.s_date_limite_inscription }}</th>
+                <th>{{ uneSortie.s_nombre_inscription_max }}</th>
+                <th>{{ uneSortie.s_etat }}</th>
+                <th>{{ uneSortie.s_organisateur }}</th>
+                <th>{% if uneSortie.s_etat == "Ouvert" %}
+                        Afficher - S'inscrire
+                    {% else %}
+                        Afficher
+                    {% endif %}</th>%}
+            </tr>
+        {#  {% endfor %}#}
+    </table>
+{% endblock %}
