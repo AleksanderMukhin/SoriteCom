@@ -8,7 +8,11 @@
 return [
     false, // $matchHost
     [ // $staticRoutes
-        '/Redirectionregister' => [[['_route' => 'redregister', '_controller' => 'App\\Controller\\MainController::myControllerAction'], null, null, null, false, false, null]],
+        '/' => [[['_route' => 'main_home', '_controller' => 'App\\Controller\\MainController::home'], null, null, null, false, false, null]],
+        '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
+        '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
+        '/accueil' => [[['_route' => 'app_sortie_accueil', '_controller' => 'App\\Controller\\SortieController::accueil'], null, null, null, true, false, null]],
+        '/accueil/test' => [[['_route' => 'app_sortie_test', '_controller' => 'App\\Controller\\SortieController::test'], null, null, null, false, false, null]],
         '/_profiler' => [[['_route' => '_profiler_home', '_controller' => 'web_profiler.controller.profiler::homeAction'], null, null, null, true, false, null]],
         '/_profiler/search' => [[['_route' => '_profiler_search', '_controller' => 'web_profiler.controller.profiler::searchAction'], null, null, null, false, false, null]],
         '/_profiler/search_bar' => [[['_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'], null, null, null, false, false, null]],

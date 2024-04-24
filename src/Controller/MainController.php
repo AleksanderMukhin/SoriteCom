@@ -9,11 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends AbstractController
 {
-    /**
-     * @Route("/Redirectionregister", name="redregister")
-     */
-    public function myControllerAction(Request $request): Response
+    #[Route("/", name:"main_home")]
+
+    public function home()
     {
-        return $this->render('register.html.twig');
+        return $this->render('main/home.html.twig');
     }
 }
