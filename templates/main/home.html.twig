@@ -1,5 +1,78 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SortieCom.io</title>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+</head>
+<body>
 
-{% block body %}
-    <h1>Home page</h1>
+{% block header %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">SortieCom.io</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('main_home') }}">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 {% endblock %}
+
+<div class="container">
+{% block body %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h1>Présentation du Projet</h1>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <h2>Positionnement</h2>
+            <p><strong>Points forts :</strong> Présence d'un grand nombre de stagiaires répartis sur différents campus en France.</p>
+            <p><strong>Opportunités :</strong> Accessibilité au web facilitée grâce à l'utilisation courante des ordinateurs de bureau et des smartphones. Expertise de la société ENI dans le domaine de l'informatique.</p>
+            <p><strong>Ambitions :</strong> Favoriser le lien extra-formation entre les stagiaires pour développer la cohésion sociale.</p>
+            <p><strong>Résultats attendus :</strong> Offrir aux stagiaires la possibilité de participer à des activités sportives, culturelles, etc. et de maintenir leur réseau ENI.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Problèmatique</h2>
+            <p>Difficulté d'organisation d'événements ou de sorties en raison du grand nombre de stagiaires répartis sur plusieurs campus.</p>
+            <p>Absence d'un canal de communication officiel pour proposer ou consulter les sorties.</p>
+            <p>Outils actuels inadaptés pour gérer les invitations en fonction de la situation géographique ou des intérêts des stagiaires, ainsi que pour gérer le nombre d'invités et la date limite d'inscription.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Projet</h2>
+            <p>Développement d'une application web permettant l'organisation des sorties, anticipant le nombre de participants, le lieu de la sortie et fournissant toutes les informations nécessaires pour assurer le bon déroulement de l'activité.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</div>
+
+{% block footer %}
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container text-center">
+        <span class="text-muted">© 2024 SortieCom.io</span>
+    </div>
+</footer>
+{% endblock %}
+
+<script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+<script src="{{ asset('js/popper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<!-- Ajoutez d'autres liens vers des fichiers JavaScript locaux si nécessaire -->
+</body>
+</html>

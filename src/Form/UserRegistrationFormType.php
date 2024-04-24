@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +22,14 @@ class UserRegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de Passe'],
                 'second_options' => ['label' => 'Confirmation du mot de passe'],
+            ])
+            ->add('photo', FileType::class, [
+                'label' => 'Photo de profil',
+                'required' => false,
+                'mapped' => false,
+                'attr' => [
+                    'accept' => 'image/*',
+                ],
             ]);
     }
 
