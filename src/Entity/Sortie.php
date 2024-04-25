@@ -32,6 +32,18 @@ class Sortie
     #[ORM\Column]
     private ?int $s_nombre_inscription_max = null;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Etat")
+     * @ORM\JoinColumn(name="e_libelle", referencedColumnName="id")
+     */
+    private ?int $s_etat = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Etat")
+     * @ORM\JoinColumn(name="c_nom_etat", referencedColumnName="id")
+     */
+    private ?int $s_campus = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +117,30 @@ class Sortie
     public function setSNombreInscriptionMax(int $s_nombre_inscription_max): static
     {
         $this->s_nombre_inscription_max = $s_nombre_inscription_max;
+
+        return $this;
+    }
+
+    public function getSEtat(): ?int
+    {
+        return $this->s_etat;
+    }
+
+    public function setSEtat(int $s_etat): static
+    {
+        $this->s_etat = $s_etat;
+
+        return $this;
+    }
+
+    public function getSCampus(): ?int
+    {
+        return $this->s_campus;
+    }
+
+    public function setSCampus(int $s_campus): static
+    {
+        $this->s_campus = $s_campus;
 
         return $this;
     }
