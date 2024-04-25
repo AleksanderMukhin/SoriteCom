@@ -6,3 +6,7 @@ register:
     path: /register
     controller: App\Controller\RegistrationController::register
     methods: ['GET', 'POST']
+
+profile:
+    path: /profile
+    controller: App\Controller\ProfileController::index
