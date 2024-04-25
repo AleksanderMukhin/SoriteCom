@@ -1,34 +1,49 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="style/table.css">
+{% endblock %}
+
+{% block javascripts %}
+    document.getElementById('campusSelectionne').addEventListener('change', function() {
+        var campusId = this.value;
+        // Requête AJAX pour récupérer les événements associés au campus sélectionné
+        $.ajax({
+            url: '/liste-sortie',
+            method: 'GET',
+            data: { campusId: campusId },
+            success: function(response) {
+                // Mettre à jour le tableau des événements avec les données reçues
+                document.getElementById('listeSorties').innerHTML = response;
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+{% endblock %}
+
 {% block body %}
-    <table>
-        <thead>
-            <tr>
-                <th>Nom de la sortie</th>
-                <th>Date de la sortie</th>
-                <th>Clôture</th>
-                <th>inscrits/places</th>
-                <th>Etat</th>
-                <th>Organisateur</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-{#  {% for uneSortie in sorties %}#}
-            <tr>
-                <th>{{ uneSortie.s_nom }}</th>
-                <th>{{ uneSortie.s_date_heure_debut }}</th>
-                <th>{{ uneSortie.s_date_limite_inscription }}</th>
-                <th>{{ uneSortie.s_nombre_inscription_max }}</th>
-                <th>{{ uneSortie.s_etat }}</th>
-                <th>{{ uneSortie.s_organisateur }}</th>
-                <th>{% if uneSortie.s_etat == "Ouvert" %}
-                        Afficher - S'inscrire
-                    {% else %}
-                        Afficher
-                    {% endif %}</th>%}
-            </tr>
-        {#  {% endfor %}#}
-        </tbody>
-    </table>
+    <!--div d'info-->
+    <div>
+        Date du jour : {{ date("d/m/Y") }}
+        Participant :
+    </div>
+    <!--div du filtre-->
+    <div>
+        <label for="campusSelectionne">Campus : </label>
+        <select name="campus" id="campusSelectionne">
+            {% for campus in campuses %}
+                <option value="{{ campus.id }}">{{ campus.c_nom }}</option>
+            {% endfor %}
+        </select>
+
+    </div>
+    <!--div du tableau-->
+    <div>
+        <!--tableau dans morceaux/table_sorties.html.twig, rechargé par ajax-->
+        <table id="listeSorties">
+
+        </table>
+    </div>
 {% endblock %}

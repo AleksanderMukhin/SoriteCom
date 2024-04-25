@@ -1,19 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+<thead>
+<tr>
+    <th>Nom de la sortie</th>
+    <th>Date de la sortie</th>
+    <th>Clôture</th>
+    <th>inscrits/places</th>
+    <th>Etat</th>
+    <th>Organisateur</th>
+    <th>Actions</th>
+</tr>
+</thead>
+<tbody>
+{#  {% for uneSortie in sorties %}#}
+<tr>
+    <th>{{ uneSortie.s_nom }}</th>
+    <th>{{ uneSortie.s_date_heure_debut }}</th>
+    <th>{{ uneSortie.s_date_limite_inscription }}</th>
+    <th>{{ uneSortie.s_nombre_inscription_max }}</th>
+    <th>{{ uneSortie.s_etat }}</th>
+    <th>{{ uneSortie.s_organisateur }}</th>
+    <th>{% if uneSortie.s_etat == "Ouvert" %}
+            Afficher - S'inscrire
+        {% else %}
+            Afficher
+        {% endif %}</th>%}
+</tr>
+{#  {% endfor %}#}
+</tbody>
