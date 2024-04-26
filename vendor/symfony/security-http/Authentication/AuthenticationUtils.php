@@ -38,6 +38,7 @@ class AuthenticationUtils
         $request = $this->getRequest();
         $authenticationException = null;
 
+
         if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
             $authenticationException = $request->attributes->get(Security::AUTHENTICATION_ERROR);
         } elseif ($request->hasSession() && ($session = $request->getSession())->has(Security::AUTHENTICATION_ERROR)) {
@@ -58,8 +59,8 @@ class AuthenticationUtils
     {
         $request = $this->getRequest();
 
-        if ($request->attributes->has(Security::LAST_USERNAME)) {
-            return $request->attributes->get(Security::LAST_USERNAME) ?? '';
+        if (!empty($request->request->get('email'))) {
+            return $request->request->get('email') ?? '';
         }
 
         return $request->hasSession() ? ($request->getSession()->get(Security::LAST_USERNAME) ?? '') : '';

@@ -1,42 +1,37 @@
-{# templates/profile/index.html.twig #}
+{% extends 'base.html.twig' %}
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil</title>
-</head>
-<body>
+{% block body %}
 
-<h1>Profil de {{ user.username }}</h1>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    {% if user.photo is not null %}
+                        <img src="{{ asset('uploads/photos/' ~ user.photo) }}" class="card-img" alt="Photo de profil">
+                    {% else %}
+                        <p class="card-text">Aucune photo de profil disponible.</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-5">
+                    <h2 class="card-title">Profil de {{ user.username }}</h2>
+                    <div class="container">
+                        <p><strong>Nom d'utilisateur:</strong> {{ user.username }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                    </div>
 
-<div>
-    <p><strong>Nom d'utilisateur:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    {% if user.photo is not null %}
-        <img src="{{ user.photo }}" alt="Photo de profil">
-    {% else %}
-        <p>Aucune photo de profil disponible.</p>
-    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="mt-4 mb-4 d-flex justify-content-center">
+        <a href="{{ path('profile_edit') }}" class="btn btn-primary">Modifier le profil</a>
+    </div>
 </div>
 
-<div>
-    <h2>Modifier le profil</h2>
-    <form method="post">
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="{{ user.email }}">
-        </div>
-        <div>
-            <label for="photo">Photo de profil:</label>
-            <input type="file" id="photo" name="photo">
-        </div>
-        <div>
-            <button type="submit">Enregistrer les modifications</button>
-        </div>
-    </form>
-</div>
 
-</body>
-</html>
+
+{% endblock %}
