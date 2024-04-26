@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class UserRegistrationFormType extends AbstractType
 {
@@ -17,7 +18,7 @@ class UserRegistrationFormType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('email', EmailType::class)
+            ->add('email')
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de Passe'],
@@ -27,6 +28,18 @@ class UserRegistrationFormType extends AbstractType
                 'label' => 'Photo de profil',
                 'required' => false,
                 'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2048k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                            'image/bmp',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG, GIF, or BMP)',
+                    ])
+                ],
                 'attr' => [
                     'accept' => 'image/*',
                 ],
