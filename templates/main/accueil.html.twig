@@ -21,12 +21,25 @@
             }
         });
     });
+
+    /* script recherche d'un élément dans le nom des sorties  */
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    $(document).ready(function(){
+        $("#champRecherche").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#listeSorties tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
 {% endblock %}
 
 {% block body %}
     <!--div d'info-->
     <div>
-        <p> Date du jour :{{ "now"|date("d/m/Y") }} </p>
+        <p> Date du jour : {{ "now"|date("d/m/Y") }} </p>
         <p> Participant :   </p>
     </div>
     <!--div du filtre-->
