@@ -1,15 +1,7 @@
-<thead>
-<tr>
-    <th>Nom de la sortie</th>
-    <th>Date de la sortie</th>
-    <th>Clôture</th>
-    <th>inscrits/places</th>
-    <th>Etat</th>
-    <th>Organisateur</th>
-    <th>Actions</th>
-</tr>
-</thead>
-<tbody>
+{% extends 'main/accueil.html.twig' %}
+
+{% block listeSorties %}
+
 {#  {% for uneSortie in sorties %}#}
 <tr>
     <th>{{ uneSortie.s_nom }}</th>
@@ -25,4 +17,5 @@
         {% endif %}</th>%}
 </tr>
 {#  {% endfor %}#}
-</tbody>
+
+{% endblock %}
