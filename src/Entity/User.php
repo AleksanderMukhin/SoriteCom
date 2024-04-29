@@ -26,12 +26,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true)] // Ajout de l'annotation Assert\Email
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     #[Assert\Email]
     private $email;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $photo;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $firstName;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $lastName;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $telephone;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $campus;
 
     public function getId(): ?int
     {
@@ -43,12 +55,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
-    public function setUsername(string $email): self
+    public function setUsername(string $username): self
     {
-        $this->username = $email;
+        $this->username = $username;
 
         return $this;
     }
@@ -69,7 +81,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -108,16 +119,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return null;
     }
 
+    public function eraseCredentials()
+    {
+
+    }
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
-
-    // Getters et setters pour les nouvelles propriétés
     public function getEmail(): ?string
     {
         return $this->email;
@@ -138,6 +146,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getCampus(): ?string
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?string $campus): self
+    {
+        $this->campus = $campus;
 
         return $this;
     }

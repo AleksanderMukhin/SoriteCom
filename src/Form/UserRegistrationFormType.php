@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -19,6 +20,18 @@ class UserRegistrationFormType extends AbstractType
         $builder
             ->add('username')
             ->add('email')
+            ->add('firstName', TextType::class, [
+                'label' => 'Prénom',
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom',
+            ])
+            ->add('telephone', TextType::class, [ // Champ telephone ajouté
+                'label' => 'Téléphone',
+            ])
+            ->add('campus', TextType::class, [ // Champ campus ajouté
+                'label' => 'Campus',
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de Passe'],
@@ -37,7 +50,7 @@ class UserRegistrationFormType extends AbstractType
                             'image/gif',
                             'image/bmp',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG, GIF, or BMP)',
+                        'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide (JPEG, PNG, GIF ou BMP)',
                     ])
                 ],
                 'attr' => [
