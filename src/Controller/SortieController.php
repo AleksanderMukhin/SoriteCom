@@ -74,13 +74,29 @@ class SortieController extends AbstractController
                 ->setParameter('dateMax', new \DateTime($dateMax));
         }
         /*if ($etreOrganisateur) {
-            // À ajuster
+            $userId = $this->getUser()->getId();
+            $queryBuilder
+                ->innerJoin('s.s_organisateur', 'u')
+                ->andWhere('u.id = :userId')
+                ->setParameter('userId', $userId);
         }
         if ($etreInscrit) {
-            // À ajuster
+            $userId = $this->getUser()->getId();
+            $queryBuilder
+                ->innerJoin('s.participants', 'u')
+                ->andWhere('u.id = :userId')
+                ->setParameter('userId', $userId);
         }
         if ($nonInscrit) {
-            // À ajuster
+            $userId = $this->getUser()->getId();
+            $subQueryBuilder = $sortieRepository->createQueryBuilder('s2');
+            $subQueryBuilder
+                ->select('s2.id')
+                ->leftJoin('s2.participants', 'u') // Supposons que 'participants' est le nom de la relation ManyToMany avec l'entité Utilisateur
+                ->andWhere('u.id = :userId')
+                ->setParameter('userId', $userId);
+            $queryBuilder
+                ->andWhere($queryBuilder->expr()->notIn('s.id', $subQueryBuilder->getDQL()));
         }*/
         //à modifier
         if ($passee) {
