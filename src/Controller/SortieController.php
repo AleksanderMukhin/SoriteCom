@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,22 +9,25 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Campus;
 use App\Entity\Sortie;
 
+// Baptiste: L'erreur venais de la varibale campuses qui n'etait pas envoyer sur la twig apparement?
 class SortieController extends AbstractController
 {
     #[Route("/accueil", "accueil")]
     public function accueil(): Response
     {
-        return $this->render('main/accueil.html.twig');
+        $campuses = [
+            ["id" => 1, "c_nom" => "Saint Herblain"],
+            ["id" => 2, "c_nom" => "Autre Campus"]
+        ];
+    
+        return $this->render('main/accueil.html.twig', [
+            'campuses' => $campuses,
+        ]);
     }
+
     #[Route("/accueil/test", "accueil_test")]
     public function test(): Response
     {
-        /*
-        $campusRepository = $this->getDoctrine()->getRepository(Campus::class);
-        $campuses = $campusRepository->findAll();
-        $SortieRepository = $this->getDoctrine()->getRepository(Campus::class);
-        $sortie = $SortieRepository->findAll();
-        */
         $campuses = [
             ["id" => 1, "c_nom" => "Saint Herblain"],
             ["id" => 2, "c_nom" => "Autre Campus"]
@@ -40,9 +42,9 @@ class SortieController extends AbstractController
             "s_organisateur" => "Jean Jean",
         ];
 
-        return $this->render('main/morceaux/table_sorties.html.twig', [
+        return $this->render('main/accueil.html.twig', [
             'uneSortie' => $sortie,
-            'campuses' => $campuses,
+            'campuses' => $campuses, 
         ]);
     }
 
@@ -50,10 +52,8 @@ class SortieController extends AbstractController
     public function getSorties(Request $request): Response
     {
         $campusId = $request->query->get('campusId');
-        // Récupérer les sorties associées au campus sélectionné
         $sorties = $this->getDoctrine()->getRepository(Sortie::class)->findBy(['campus' => $campusId]);
 
-        // Rendre le template Twig pour le tableau de sorties
         return $this->render('main/morceaux/table_sorties.html.twig', [
             'uneSortie' => $sorties,
         ]);
