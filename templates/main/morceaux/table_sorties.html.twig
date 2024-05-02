@@ -2,21 +2,20 @@
 
 {% block listeSorties %}
 
-{#  {% for uneSortie in sorties %}#}
+{% for uneSortie in sorties %}}
 <tr>
-    <th>{{ uneSortie.s_nom }}</th>
-    <th>{{ uneSortie.s_date_heure_debut }}</th>
-    <th>{{ uneSortie.s_date_limite_inscription }}</th>
-    <th>{{ uneSortie.s_nombre_inscription_max }}</th>
-    <th>{{ uneSortie.s_etat }}</th>
-    <th>{{ uneSortie.s_organisateur }}</th>
-    <th>{% if uneSortie.s_etat == "Ouvert" %}
+    <th>{{ uneSortie.sNom }}</th>
+    <th>{{ uneSortie.sDateHeureDebut.format('Y-m-d H:i') }}</th>
+    <th>{{ uneSortie.sDateLimiteInscription.format('Y-m-d H:i') }}</th>
+    <th>{{ uneSortie.sNombreInscriptionMax }}</th>
+    <th>{{ uneSortie.sEtat }}</th>
+    <th>{% if uneSortie.sEtat == "Ouvert" %}
             Afficher - S'inscrire
         {% else %}
             Afficher
         {% endif %}
     </th>
 </tr>
-{#  {% endfor %}#}
+{% endfor %}
 
 {% endblock %}
