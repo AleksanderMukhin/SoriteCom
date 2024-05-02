@@ -3,6 +3,10 @@
 namespace App\Controller;
 
 
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
+use App\Form\SortieType;
+use App\Service\SortieService;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,11 +17,44 @@ use App\Entity\Sortie;
 
 class SortieController extends AbstractController
 {
+    #[Route("/sortie/creer", name: "sortie_creer", methods: ["GET", "POST"])]
+    public function creerSortie(Request $request, SortieService $sortieService, Security $security): Response
+    {
+        $sortie = new Sortie();
+        $form = $this->createForm(SortieType::class, $sortie);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Récupérer l'utilisateur connecté
+            $user = $security->getUser();
+
+            // Enregistrer la sortie dans la base de données en utilisant le service SortieService
+            $sortieService->creerSortie($sortie, $user);
+    
+            $this->addFlash('success', 'Sortie créée avec succès.');
+    
+            return $this->redirectToRoute('accueil');
+        }
+    
+        // Récupérer les données pour la variable "campuses" depuis votre source de données appropriée
+        $campuses = [
+            ["id" => 1, "nom" => "Campus 1"],
+            ["id" => 2, "nom" => "Campus 2"]
+        ];
+    
+        return $this->render('main/creer.html.twig', [
+            'form' => $form->createView(),
+            'campuses' => $campuses, // Passer les campuses à votre template
+        ]);
+    }
+    
+
     #[Route("/accueil", "accueil")]
     public function test(SortieRepository $SortieRepository): Response
     {
         $campusRepository = $this->getDoctrine()->getRepository(Campus::class);
         $campuses = $campusRepository->findAll();
+        //$SortieRepository = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $SortieRepository->findAll();
 
 
@@ -60,13 +97,29 @@ class SortieController extends AbstractController
                 ->setParameter('dateMax', new \DateTime($dateMax));
         }
         /*if ($etreOrganisateur) {
-            // À ajuster
+            $userId = $this->getUser()->getId();
+            $queryBuilder
+                ->innerJoin('s.s_organisateur', 'u')
+                ->andWhere('u.id = :userId')
+                ->setParameter('userId', $userId);
         }
         if ($etreInscrit) {
-            // À ajuster
+            $userId = $this->getUser()->getId();
+            $queryBuilder
+                ->innerJoin('s.participants', 'u')
+                ->andWhere('u.id = :userId')
+                ->setParameter('userId', $userId);
         }
         if ($nonInscrit) {
-            // À ajuster
+            $userId = $this->getUser()->getId();
+            $subQueryBuilder = $sortieRepository->createQueryBuilder('s2');
+            $subQueryBuilder
+                ->select('s2.id')
+                ->leftJoin('s2.participants', 'u') // Supposons que 'participants' est le nom de la relation ManyToMany avec l'entité Utilisateur
+                ->andWhere('u.id = :userId')
+                ->setParameter('userId', $userId);
+            $queryBuilder
+                ->andWhere($queryBuilder->expr()->notIn('s.id', $subQueryBuilder->getDQL()));
         }*/
         //à modifier
         if ($passee) {
@@ -83,8 +136,32 @@ class SortieController extends AbstractController
             'sorties' => $sorties,
         ]);
     }
+    #[Route("/accueil/modification_sortie", "modification_sortie")]
+    public function modificationSortie(Request $request, $id ): Response{
+        $entityManager = $this->getDoctrine()->getManager();
+        $sortie = $entityManager->getRepository(Sortie::class)->find($id);
+        $campusRepository = $this->getDoctrine()->getRepository(Campus::class);
+        $campuses = $campusRepository->findAll();
 
-   // #[Route("/accueil/details/{id}", "accueil_details")]
+        if (!$sortie) {
+            throw $this->createNotFoundException('Sortie non trouvée');
+        }
+        $form = $this->createForm(SortieType::class, $sortie);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Enregistrer les modifications de la sortie
+            $entityManager->flush();
+            return $this->redirectToRoute('accueil');
+        }
+
+        return $this->render('main/modifier.html.twig', [
+            'form' => $form->createView(),
+            'campuses' => $campuses,
+        ]);
+    }
+
+// #[Route("/accueil/details/{id}", "accueil_details")]
 #[Route("/accueil/details/{id}", "sortie_details")]
     public  function details(int $id, SortieRepository $SortieRepository): Response
     {

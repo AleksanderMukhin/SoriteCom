@@ -9,13 +9,9 @@
     <th>{{ uneSortie.sDateLimiteInscription.format('Y-m-d H:i') }}</th>
     <th>{{ uneSortie.sNombreInscriptionMax }}</th>
     <th>{{ uneSortie.sEtat }}</th>
-    <th>{% if uneSortie.sEtat == "Ouvert" %}
-            <a href="{{ path('sortie_details', {'id':uneSortie.id}) }}" title="View sortie details">Afficher</a>
-            -
-            S'inscrire
-        {% else %}
-            <a href="{{ path('sortie_details', {'id':uneSortie.id}) }}" title="View sortie details">Afficher</a>
-        {% endif %}
+    <th><a href="{{ path('sortie_details', {'id':uneSortie.id}) }}" title="View sortie details">Afficher</a>
+        <a href="{{ path('modification_sortie', {'id': uneSortie.id}) }}">Modifier</a> - S'inscrire
+        {% if uneSortie.sEtat == "Ouvert" %} - S'inscrire{% endif %}
     </th>
 </tr>
 {% endfor %}
