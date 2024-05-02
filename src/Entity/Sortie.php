@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
-use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -32,17 +34,28 @@ class Sortie
     #[ORM\Column]
     private ?int $s_nombre_inscription_max = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Etat")
-     * @ORM\JoinColumn(name="e_libelle", referencedColumnName="id")
-     */
-    private ?int $s_etat = null;
+   
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Campus")]
+    #[ORM\JoinColumn(name: "s_campus_id", referencedColumnName: "id")]
+    private ?Campus $s_campus = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Etat")
-     * @ORM\JoinColumn(name="c_nom_etat", referencedColumnName="id")
+     * @ORM\JoinColumn(name="s_etat_id", referencedColumnName="id", nullable=false)
      */
-    private ?int $s_campus = null;
+    private ?Etat $s_etat = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $s_organisateur = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sortie')]
+    private Collection $participant;
+
+    public function __construct()
+    {
+        $this->participant = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,26 +134,62 @@ class Sortie
         return $this;
     }
 
-    public function getSEtat(): ?int
+    public function getSCampus(): ?Campus
+    {
+        return $this->s_campus;
+    }
+
+    public function setSCampus(?Campus $s_campus): static
+    {
+        $this->s_campus = $s_campus;
+
+        return $this;
+    }
+
+    public function getSEtat(): ?Etat
     {
         return $this->s_etat;
     }
 
-    public function setSEtat(int $s_etat): static
+    public function setSEtat(?Etat $s_etat): static
     {
         $this->s_etat = $s_etat;
 
         return $this;
     }
 
-    public function getSCampus(): ?int
+    public function getSOrganisateur(): ?User
     {
-        return $this->s_campus;
+        return $this->s_organisateur;
     }
 
-    public function setSCampus(int $s_campus): static
+    public function setSOrganisateur(?User $s_organisateur): static
     {
-        $this->s_campus = $s_campus;
+        $this->s_organisateur = $s_organisateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getParticipant(): Collection
+    {
+        return $this->participant;
+    }
+
+    public function addParticipant(User $participant): static
+    {
+        if (!$this->participant->contains($participant)) {
+            $this->participant->add($participant);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(User $participant): static
+    {
+        $this->participant->removeElement($participant);
 
         return $this;
     }

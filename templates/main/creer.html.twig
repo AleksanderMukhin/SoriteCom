@@ -1,0 +1,69 @@
+{# templates/sortie/creer.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une sortie{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-5 mb-4">Créer une sortie</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form id="createSortieForm" action="{{ path('sortie_creer') }}" method="post">
+                    {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                    <div class="mb-3">
+                        {{ form_row(form.s_nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom de la sortie'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_row(form.s_description, {'attr': {'class': 'form-control', 'placeholder': 'Description de la sortie'}}) }}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_row(form.s_date_heure_debut, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_row(form.s_duree, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_row(form.s_date_limite_inscription, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form_row(form.s_nombre_inscription_max, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        {# Création des options de campus ici #}
+                        <select name="campus" class="form-select">
+                            {% for campus in campuses %}
+                                <option value="{{ campus.id }}">{{ campus.nom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {# Ajoutez d'autres champs de formulaire au besoin #}
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Créer la sortie</button>
+                    {{ form_end(form) }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('createSortieForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            
+            var campusId = document.querySelector('[name="campus"]').value;
+
+            var hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'campusId';
+            hiddenInput.value = campusId;
+
+            this.appendChild(hiddenInput);
+
+            this.submit();
+        });
+    </script>
+{% endblock %}

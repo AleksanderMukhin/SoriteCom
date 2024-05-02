@@ -2,6 +2,24 @@
 
 {% block javascripts %}
     <script>
+        //rendre les checkbox de tri d'être inscrit aux sorties et de ne pas être inscrit aux sorties excluants
+        document.addEventListener('DOMContentLoaded', function() {
+            const inscrit = document.querySelector('input[name="etreInscrit"]');
+            const non_inscrit = document.querySelector('input[name="nonInscrit"]');
+
+            inscrit.addEventListener('change', function() {
+                if (inscrit.checked) {
+                    non_inscrit.checked = false;
+                }
+            });
+
+            non_inscrit.addEventListener('change', function() {
+                if (non_inscrit.checked) {
+                    inscrit.checked = false;
+                }
+            });
+        });
+
         document.getElementById('filtre').addEventListener('submit', function(event) {
             event.preventDefault();
 
