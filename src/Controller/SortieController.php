@@ -115,7 +115,7 @@ class SortieController extends AbstractController
             $subQueryBuilder = $sortieRepository->createQueryBuilder('s2');
             $subQueryBuilder
                 ->select('s2.id')
-                ->leftJoin('s2.participants', 'u') // Supposons que 'participants' est le nom de la relation ManyToMany avec l'entité Utilisateur
+                ->leftJoin('s2.participants', 'u') // En supposant que 'participants' est le nom de la relation ManyToMany avec l'entité Utilisateur
                 ->andWhere('u.id = :userId')
                 ->setParameter('userId', $userId);
             $queryBuilder
@@ -136,7 +136,9 @@ class SortieController extends AbstractController
             'sorties' => $sorties,
         ]);
     }
-    #[Route("/accueil/modification_sortie", "modification_sortie")]
+    /**
+     * @Route("/accueil/modification_sortie/{id}", name="modification_sortie")
+     */
     public function modificationSortie(Request $request, $id ): Response{
         $entityManager = $this->getDoctrine()->getManager();
         $sortie = $entityManager->getRepository(Sortie::class)->find($id);

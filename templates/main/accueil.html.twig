@@ -62,7 +62,7 @@
                 <label for="campusSelectionne" class="form-label">Campus :</label>
                 <select name="campus" id="campusSelectionne" class="form-select">
                     {% for campus in campuses %}
-                        <option value="{{ campus['id'] }}">{{ campus['c_nom'] }}</option>
+                        <option value="{{ campus.id }}">{{ campus.getCNom() }}</option>
                     {% endfor %}
                 </select>
             </div>

@@ -33,7 +33,7 @@
                     <label for="campus">Campus : </label>
                     <select name="campus" id="campus" class="form-select">
                         {% for campus in campuses %}
-                        <option value="{{ campus['id'] }}" {% if form.vars.value.s_campus == campus.id %} selected {% endif %}>{{ campus['c_nom'] }}</option>
+                        <option value="{{ campus.id }}" {% if form.vars.value.s_campus == campus.id %} selected {% endif %}>{{ campus.getCNom }}</option>
                         {% endfor %}
                     </select>
                 </div>
