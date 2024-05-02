@@ -5,8 +5,8 @@ namespace App\Entity;
 use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -34,12 +34,15 @@ class Sortie
     #[ORM\Column]
     private ?int $s_nombre_inscription_max = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+   
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Campus")]
+    #[ORM\JoinColumn(name: "s_campus_id", referencedColumnName: "id")]
     private ?Campus $s_campus = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Etat")
+     * @ORM\JoinColumn(name="s_etat_id", referencedColumnName="id", nullable=false)
+     */
     private ?Etat $s_etat = null;
 
     #[ORM\ManyToOne]
@@ -53,8 +56,6 @@ class Sortie
     {
         $this->participant = new ArrayCollection();
     }
-
-
 
     public function getId(): ?int
     {

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '10f3325a936c4db5902e4cba571a71dfe5716b50',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '10f3325a936c4db5902e4cba571a71dfe5716b50',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -55,6 +55,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'doctrine/data-fixtures' => array(
+            'pretty_version' => '1.7.0',
+            'version' => '1.7.0.0',
+            'reference' => 'bbcb74f2ac6dbe81a14b3c3687d7623490a0448f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/data-fixtures',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
         'doctrine/dbal' => array(
             'pretty_version' => '3.8.3',
             'version' => '3.8.3.0',
@@ -81,6 +90,15 @@
             'install_path' => __DIR__ . '/../doctrine/doctrine-bundle',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'doctrine/doctrine-fixtures-bundle' => array(
+            'pretty_version' => '3.5.1',
+            'version' => '3.5.1.0',
+            'reference' => 'c808a0c85c38c8ee265cc8405b456c1d2b38567d',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../doctrine/doctrine-fixtures-bundle',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'doctrine/doctrine-migrations-bundle' => array(
             'pretty_version' => '3.3.0',

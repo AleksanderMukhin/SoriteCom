@@ -3,6 +3,10 @@
 namespace App\Controller;
 
 
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
+use App\Form\SortieType;
+use App\Service\SortieService;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +17,38 @@ use App\Entity\Sortie;
 
 class SortieController extends AbstractController
 {
+    #[Route("/sortie/creer", name: "sortie_creer", methods: ["GET", "POST"])]
+    public function creerSortie(Request $request, SortieService $sortieService, Security $security): Response
+    {
+        $sortie = new Sortie();
+        $form = $this->createForm(SortieType::class, $sortie);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Récupérer l'utilisateur connecté
+            $user = $security->getUser();
+
+            // Enregistrer la sortie dans la base de données en utilisant le service SortieService
+            $sortieService->creerSortie($sortie, $user);
+    
+            $this->addFlash('success', 'Sortie créée avec succès.');
+    
+            return $this->redirectToRoute('accueil');
+        }
+    
+        // Récupérer les données pour la variable "campuses" depuis votre source de données appropriée
+        $campuses = [
+            ["id" => 1, "nom" => "Campus 1"],
+            ["id" => 2, "nom" => "Campus 2"]
+        ];
+    
+        return $this->render('main/creer.html.twig', [
+            'form' => $form->createView(),
+            'campuses' => $campuses, // Passer les campuses à votre template
+        ]);
+    }
+    
+
     #[Route("/accueil", "accueil")]
     public function test(): Response
     {
@@ -113,4 +149,6 @@ class SortieController extends AbstractController
             'sorties' => $sorties,
         ]);
     }
+
+    
 }

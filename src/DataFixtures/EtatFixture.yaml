@@ -1,0 +1,5 @@
+App\Entity\Etat:
+  etat_1:
+    e_libelle: 'En cours'
+  etat_2:
+    e_libelle: 'Terminée'
