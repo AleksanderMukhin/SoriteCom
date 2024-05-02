@@ -2,7 +2,7 @@
 
 {% block listeSorties %}
 
-{% for uneSortie in sorties %}}
+{% for uneSortie in sorties %}
 <tr>
     <th>{{ uneSortie.sNom }}</th>
     <th>{{ uneSortie.sDateHeureDebut.format('Y-m-d H:i') }}</th>
@@ -10,9 +10,11 @@
     <th>{{ uneSortie.sNombreInscriptionMax }}</th>
     <th>{{ uneSortie.sEtat }}</th>
     <th>{% if uneSortie.sEtat == "Ouvert" %}
-            Afficher - S'inscrire
+            <a href="{{ path('sortie_details', {'id':uneSortie.id}) }}" title="View sortie details">Afficher</a>
+            -
+            S'inscrire
         {% else %}
-            Afficher
+            <a href="{{ path('sortie_details', {'id':uneSortie.id}) }}" title="View sortie details">Afficher</a>
         {% endif %}
     </th>
 </tr>

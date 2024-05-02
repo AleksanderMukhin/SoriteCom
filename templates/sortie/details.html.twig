@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2 class="card-title text-center">Afficher une sortie</h2><br>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <p><strong>Nom de la sortie: </strong> {{ sortie.sNom }}</p>
+                    <p><strong>Date et heure de la sortie: </strong> {{ sortie.sDateHeureDebut.format('Y-m-d H:i') }}</p>
+                    <p><strong>Date limite d'inscription: </strong> {{ sortie.sDateLimiteInscription.format('Y-m-d H:i') }}</p>
+                    <p><strong>Nombre de places: </strong> {{ sortie.sNombreInscriptionMax }}</p>
+                    <p><strong>Durée: </strong>  minutes</p>
+                    <p><strong>Description ry infos: </strong> {{ sortie.sDescription}}</p>
+                </div>
+                <div class="col-md-5">
+                    <div class="container">
+                        <p><strong>Campus:</strong> {{ sortie.sCampus }}</p>
+                        <p><strong>Lieu:</strong> </p>
+                        <p><strong>Rue:</strong> </p>
+                        <p><strong>Code postale:</strong> </p>
+                        <p><strong>Latitude:</strong> </p>
+                        <p><strong>Longitude:</strong> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

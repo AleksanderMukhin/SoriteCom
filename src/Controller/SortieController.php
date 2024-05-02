@@ -18,7 +18,6 @@ class SortieController extends AbstractController
     {
         $campusRepository = $this->getDoctrine()->getRepository(Campus::class);
         $campuses = $campusRepository->findAll();
-        //$SortieRepository = $this->getDoctrine()->getRepository(Campus::class);
         $sortie = $SortieRepository->findAll();
 
 
@@ -83,5 +82,18 @@ class SortieController extends AbstractController
         return $this->render('main/morceaux/table_sorties.html.twig', [
             'sorties' => $sorties,
         ]);
+    }
+
+   // #[Route("/accueil/details/{id}", "accueil_details")]
+#[Route("/accueil/details/{id}", "sortie_details")]
+    public  function details(int $id, SortieRepository $SortieRepository): Response
+    {
+        $sortie=$SortieRepository->find($id);
+
+        if(!$sortie){
+            throw $this->createNotFoundException('oh no!!!');
+        }
+
+        return $this->render('sortie/details.html.twig', ['sortie'=>$sortie]);
     }
 }

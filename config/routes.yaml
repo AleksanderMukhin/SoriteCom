@@ -15,3 +15,8 @@ accueil:
     path: /accueil
     controller: App\Controller\SortieController::accueil
     methods: GET
+
+sortie_details:
+    path: /accueil/details/{id}
+    controller: App\Controller\SortieController::sortie_details
+    methods: GET
