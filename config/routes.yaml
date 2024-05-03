@@ -20,3 +20,7 @@ sortie_details:
     path: /accueil/details/{id}
     controller: App\Controller\SortieController::sortie_details
     methods: GET
+
+supprimer_sortie:
+    path: '/sortie/{id}/supprimer'
+    controller: 'App\Controller\SortieController::supprimerSortie'

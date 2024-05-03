@@ -38,7 +38,14 @@
                     </select>
                 </div>
                 <hr class="mb-4"/>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Enregistrer</button>
+                <div class="row">
+                <div class="col-md-6 mb-3">
+                     <a href="{{ path('supprimer_sortie', {'id': sortie.id}) }}" class="btn btn-danger">Supprimer</a>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Enregistrer</button>
+                </div>
+</div>
                 {{ form_end(form) }}
             </form>
         </div>

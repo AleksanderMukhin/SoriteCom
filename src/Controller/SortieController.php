@@ -47,8 +47,25 @@ class SortieController extends AbstractController
             'campuses' => $campuses, // Passer les campuses à votre template
         ]);
     }
-    
 
+     /**
+     * @Route("/sortie/{id}/supprimer", name="supprimer_sortie")
+     */
+    public function supprimerSortie($id): Response
+    {
+    $entityManager = $this->getDoctrine()->getManager();
+    $sortie = $entityManager->getRepository(Sortie::class)->find($id);
+
+    if (!$sortie) {
+        throw $this->createNotFoundException('La sortie n\'existe pas');
+    }
+
+    $entityManager->remove($sortie);
+    $entityManager->flush();
+
+    return $this->redirectToRoute('accueil');
+    }
+    
     #[Route("/accueil", "accueil")]
     public function test(SortieRepository $SortieRepository): Response
     {
