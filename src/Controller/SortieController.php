@@ -167,14 +167,14 @@ class SortieController extends AbstractController
             throw $this->createNotFoundException('Sortie non trouvée');
         }
         $form = $this->createForm(SortieType::class, $sortie);
-    
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Enregistrer les modifications de la sortie
             $entityManager->flush();
             return $this->redirectToRoute('accueil');
         }
-    
+
         return $this->render('main/modifier.html.twig', [
             'form' => $form->createView(),
             'campuses' => $campuses,
