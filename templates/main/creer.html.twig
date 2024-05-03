@@ -35,7 +35,10 @@
                         {{ form_row(form.sCampus, {'attr': {'class': 'form-control'}}) }}
                     </div>
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Créer la sortie</button>
+                    <div class="mb-3">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Créer la sortie</button>
+                        <a href="{{ path('accueil')}}" class="btn btn-danger btn-lg btn-block">Retour</a>
+                        </div>
                     {{ form_end(form) }}
                 </form>
             </div>
