@@ -24,7 +24,6 @@
             event.preventDefault();
 
             var formData = new FormData(this);
-            // Récupérer l'ID du campus sélectionné
             var campusValue = document.getElementById('campusSelectionne').value;
             var campusId = campusValue.replace('campus_', '');
             formData.append('campus', campusId);

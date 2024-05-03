@@ -17,37 +17,37 @@ class Sortie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $s_nom = null;
+    private ?string $sNom = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $s_description = null;
+    private ?string $sDescription = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $s_date_heure_debut = null;
+    private ?\DateTimeInterface $sDateHeureDebut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $s_duree = null;
+    private ?\DateTimeInterface $sDuree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $s_date_limite_inscription = null;
+    private ?\DateTimeInterface $sDateLimiteInscription = null;
 
     #[ORM\Column]
-    private ?int $s_nombre_inscription_max = null;
+    private ?int $sNombreInscriptionMax = null;
 
    
     #[ORM\ManyToOne(targetEntity: "App\Entity\Campus")]
     #[ORM\JoinColumn(name: "s_campus_id", referencedColumnName: "id")]
-    private ?Campus $s_campus = null;
+    private ?Campus $sCampus = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Etat")
      * @ORM\JoinColumn(name="s_etat_id", referencedColumnName="id", nullable=false)
      */
-    private ?Etat $s_etat = null;
+    private ?Etat $sEtat = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $s_organisateur = null;
+    private ?User $sOrganisateur = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sortie')]
     private Collection $participant;
@@ -64,108 +64,108 @@ class Sortie
 
     public function getSNom(): ?string
     {
-        return $this->s_nom;
+        return $this->sNom;
     }
 
-    public function setSNom(string $s_nom): static
+    public function setSNom(string $sNom): static
     {
-        $this->s_nom = $s_nom;
+        $this->sNom = $sNom;
 
         return $this;
     }
 
     public function getSDescription(): ?string
     {
-        return $this->s_description;
+        return $this->sDescription;
     }
 
-    public function setSDescription(?string $s_description): static
+    public function setSDescription(?string $sDescription): static
     {
-        $this->s_description = $s_description;
+        $this->sDescription = $sDescription;
 
         return $this;
     }
 
     public function getSDateHeureDebut(): ?\DateTimeInterface
     {
-        return $this->s_date_heure_debut;
+        return $this->sDateHeureDebut;
     }
 
-    public function setSDateHeureDebut(\DateTimeInterface $s_date_heure_debut): static
+    public function setSDateHeureDebut(\DateTimeInterface $sDateHeureDebut): static
     {
-        $this->s_date_heure_debut = $s_date_heure_debut;
+        $this->sDateHeureDebut = $sDateHeureDebut;
 
         return $this;
     }
 
     public function getSDuree(): ?\DateTimeInterface
     {
-        return $this->s_duree;
+        return $this->sDuree;
     }
 
-    public function setSDuree(\DateTimeInterface $s_duree): static
+    public function setSDuree(\DateTimeInterface $sDuree): static
     {
-        $this->s_duree = $s_duree;
+        $this->sDuree = $sDuree;
 
         return $this;
     }
 
     public function getSDateLimiteInscription(): ?\DateTimeInterface
     {
-        return $this->s_date_limite_inscription;
+        return $this->sDateLimiteInscription;
     }
 
-    public function setSDateLimiteInscription(\DateTimeInterface $s_date_limite_inscription): static
+    public function setSDateLimiteInscription(\DateTimeInterface $sDateLimiteInscription): static
     {
-        $this->s_date_limite_inscription = $s_date_limite_inscription;
+        $this->sDateLimiteInscription = $sDateLimiteInscription;
 
         return $this;
     }
 
     public function getSNombreInscriptionMax(): ?int
     {
-        return $this->s_nombre_inscription_max;
+        return $this->sNombreInscriptionMax;
     }
 
-    public function setSNombreInscriptionMax(int $s_nombre_inscription_max): static
+    public function setSNombreInscriptionMax(int $sNombreInscriptionMax): static
     {
-        $this->s_nombre_inscription_max = $s_nombre_inscription_max;
+        $this->sNombreInscriptionMax = $sNombreInscriptionMax;
 
         return $this;
     }
 
     public function getSCampus(): ?Campus
     {
-        return $this->s_campus;
+        return $this->sCampus;
     }
 
-    public function setSCampus(?Campus $s_campus): static
+    public function setSCampus(?Campus $sCampus): static
     {
-        $this->s_campus = $s_campus;
+        $this->sCampus = $sCampus;
 
         return $this;
     }
 
     public function getSEtat(): ?Etat
     {
-        return $this->s_etat;
+        return $this->sEtat;
     }
 
-    public function setSEtat(?Etat $s_etat): static
+    public function setSEtat(?Etat $sEtat): static
     {
-        $this->s_etat = $s_etat;
+        $this->sEtat = $sEtat;
 
         return $this;
     }
 
     public function getSOrganisateur(): ?User
     {
-        return $this->s_organisateur;
+        return $this->sOrganisateur;
     }
 
-    public function setSOrganisateur(?User $s_organisateur): static
+    public function setSOrganisateur(?User $sOrganisateur): static
     {
-        $this->s_organisateur = $s_organisateur;
+        $this->sOrganisateur = $sOrganisateur;
 
         return $this;
     }

@@ -139,29 +139,32 @@ class SortieController extends AbstractController
     /**
      * @Route("/accueil/modification_sortie/{id}", name="modification_sortie")
      */
-    public function modificationSortie(Request $request, $id ): Response{
+    public function modificationSortie(Request $request, $id): Response
+    {
         $entityManager = $this->getDoctrine()->getManager();
         $sortie = $entityManager->getRepository(Sortie::class)->find($id);
         $campusRepository = $this->getDoctrine()->getRepository(Campus::class);
         $campuses = $campusRepository->findAll();
-
+    
         if (!$sortie) {
             throw $this->createNotFoundException('Sortie non trouvée');
         }
         $form = $this->createForm(SortieType::class, $sortie);
-
+    
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Enregistrer les modifications de la sortie
             $entityManager->flush();
             return $this->redirectToRoute('accueil');
         }
-
+    
         return $this->render('main/modifier.html.twig', [
             'form' => $form->createView(),
             'campuses' => $campuses,
+            'sortie' => $sortie, // Passer la sortie au template
         ]);
     }
+    
 
 // #[Route("/accueil/details/{id}", "accueil_details")]
 #[Route("/accueil/details/{id}", "sortie_details")]

@@ -20,13 +20,10 @@ class SortieService
     public function creerSortie(Sortie $sortie, UserInterface $organisateur): void
     {
         $sortie->setSOrganisateur($organisateur);
-        // Obtenez l'entité Etat par défaut (supposons que son ID est 1)
         $etatIdParDefaut = 1;
 
-        // Récupérez une référence à l'entité Etat par défaut
         $etatParDefaut = $this->entityManager->getReference(Etat::class, $etatIdParDefaut);
 
-        // Définissez l'état de la sortie sur l'état par défaut
         $sortie->setSEtat($etatParDefaut);
 
         // Persistez la sortie

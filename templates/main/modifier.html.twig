@@ -5,35 +5,35 @@
     <h1 class="mt-5 mb-4">Modifier une sortie</h1>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form id="createSortieForm" action="{{ path('modification_sortie') }}" method="post">
+            <form id="createSortieForm" action="{{ path('modification_sortie', {'id': sortie.id}) }}" method="post">
                 {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
                 <div class="mb-3">
-                    {{ form_row(form.s_nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom de la sortie','value':form.vars.value.s_nom}}) }}
+                    {{ form_row(form.sNom, {'attr': {'class': 'form-control', 'placeholder': 'Nom de la sortie','value':form.vars.value.sNom}}) }}
                 </div>
                 <div class="mb-3">
-                    {{ form_row(form.s_description, {'attr': {'class': 'form-control', 'placeholder': 'Description de la sortie','value':form.vars.value.s_description}}) }}
+                    {{ form_row(form.sDescription, {'attr': {'class': 'form-control', 'placeholder': 'Description de la sortie','value':form.vars.value.sDescription}}) }}
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        {{ form_row(form.s_date_heure_debut, {'attr': {'class': 'form-control','value':form.vars.value.s_date_heure_debut}}) }}
+                        {{ form_row(form.sDateHeureDebut, {'attr': {'class': 'form-control','value':form.vars.value.sDateHeureDebut|date("Y-m-d H:i:s")}}) }}
                     </div>
                     <div class="col-md-6 mb-3">
-                        {{ form_row(form.s_duree, {'attr': {'class': 'form-control','value':form.vars.value.s_duree}}) }}
+                        {{ form_row(form.sDuree, {'attr': {'class': 'form-control','value':form.vars.value.sDuree|date("H:i:s")}}) }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        {{ form_row(form.s_date_limite_inscription, {'attr': {'class': 'form-control','value':form.vars.value.s_date_limite_inscription}}) }}
+                        {{ form_row(form.sDateLimiteInscription, {'attr': {'class': 'form-control','value':form.vars.value.sDateLimiteInscription|date("Y-m-d H:i:s")}}) }}
                     </div>
                     <div class="col-md-6 mb-3">
-                        {{ form_row(form.s_nombre_inscription_max, {'attr': {'class': 'form-control','value':form.vars.value.s_nombre_inscription_max}}) }}
+                        {{ form_row(form.sNombreInscriptionMax, {'attr': {'class': 'form-control','value':form.vars.value.sNombreInscriptionMax}}) }}
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="campus">Campus : </label>
                     <select name="campus" id="campus" class="form-select">
                         {% for campus in campuses %}
-                        <option value="{{ campus.id }}" {% if form.vars.value.s_campus == campus.id %} selected {% endif %}>{{ campus.getCNom }}</option>
+                        <option value="{{ campus.id }}" {% if form.vars.value.sCampus == campus.id %} selected {% endif %}>{{ campus.nom }}</option>
                         {% endfor %}
                     </select>
                 </div>
